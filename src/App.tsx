@@ -1,7 +1,7 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { Github, Linkedin, Laptop, Server, Smartphone, Rocket, Zap, Users, Home, Phone, FolderGit2, Braces } from 'lucide-react';
+import { Github, Linkedin, Laptop, Server, Smartphone, Rocket, Zap, Users, Home, Phone, FolderGit2, Braces, Menu, X } from 'lucide-react';
 import { CustomCursor } from './components/CustomCursor';
 import MapleBytesLogo from './components/MapleBytesLogo';
 
@@ -25,6 +25,7 @@ function FadeInSection({ children, delay = 0 }: { children: React.ReactNode; del
 
 function App() {
   const { scrollYProgress } = useScroll();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -42,85 +43,138 @@ function App() {
 
       {/* Navigation Bar */}
       <nav className="fixed top-0 w-full z-40 py-2 px-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Left Section: Logo & Text */}
-          <div className="flex items-center space-x-3">
-            <MapleBytesLogo className="w-24 h-24 md:w-32 md:h-32" fill="#4ECCA3" />
-            <span className="text-2xl md:text-3xl font-bold">MapleBytes</span>
-          </div>
+  <div className="max-w-7xl mx-auto flex items-center justify-between">
+    {/* Left Section: Logo (text hidden on mobile) */}
+    <div className="flex items-center space-x-3">
+      <MapleBytesLogo className="w-32 h-32 md:w-32 md:h-32" fill="#4ECCA3" />
+      <span className="hidden md:block text-3xl font-bold">MapleBytes</span>
+    </div>
 
-          {/* Center Section: Navigation Links */}
-          <div className="flex items-center">
-            <div className="flex items-center backdrop-blur-md bg-black/30 rounded-full px-4 py-2 md:px-12 md:py-3 border border-gray-800/50">
-              <motion.a
-                href="#home"
-                className="px-4 md:px-6 hover:text-[#4ECCA3] transition-colors flex items-center space-x-2"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Home className="w-4 h-4" />
-                <span>Home</span>
-              </motion.a>
-              <motion.a
-                href="#services"
-                className="px-4 md:px-6 hover:text-[#4ECCA3] transition-colors flex items-center space-x-2"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Server className="w-4 h-4" />
-                <span>Services</span>
-              </motion.a>
-              <motion.a
-                href="#projects"
-                className="px-4 md:px-6 hover:text-[#4ECCA3] transition-colors flex items-center space-x-2"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <FolderGit2 className="w-4 h-4" />
-                <span>Projects</span>
-              </motion.a>
-              <motion.a
-                href="#about"
-                className="px-4 md:px-6 hover:text-[#4ECCA3] transition-colors flex items-center space-x-2"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Users className="w-4 h-4" />
-                <span>About Us</span>
-              </motion.a>
-              <motion.a
-                href="#contact"
-                className="px-4 md:px-6 hover:text-[#4ECCA3] transition-colors flex items-center space-x-2"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Phone className="w-4 h-4" />
-                <span>Contact</span>
-              </motion.a>
-            </div>
-          </div>
+    {/* Desktop Navigation (visible on md and up) */}
+    <div className="hidden md:flex items-center space-x-8">
+      <div className="flex items-center backdrop-blur-md bg-black/30 rounded-full px-12 py-3 border border-gray-800/50">
+        <motion.a
+          href="#home"
+          className="px-6 hover:text-[#4ECCA3] transition-colors flex items-center space-x-2"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Home className="w-4 h-4" />
+          <span>Home</span>
+        </motion.a>
+        <motion.a
+          href="#services"
+          className="px-6 hover:text-[#4ECCA3] transition-colors flex items-center space-x-2"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Server className="w-4 h-4" />
+          <span>Services</span>
+        </motion.a>
+        <motion.a
+          href="#projects"
+          className="px-6 hover:text-[#4ECCA3] transition-colors flex items-center space-x-2"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <FolderGit2 className="w-4 h-4" />
+          <span>Projects</span>
+        </motion.a>
+        <motion.a
+          href="#about"
+          className="px-6 hover:text-[#4ECCA3] transition-colors flex items-center space-x-2"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Users className="w-4 h-4" />
+          <span>About Us</span>
+        </motion.a>
+        <motion.a
+          href="#contact"
+          className="px-6 hover:text-[#4ECCA3] transition-colors flex items-center space-x-2"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Phone className="w-4 h-4" />
+          <span>Contact</span>
+        </motion.a>
+      </div>
+      <div className="flex items-center space-x-4">
+        <motion.a
+          href="#"
+          className="hover:text-[#4ECCA3] transition-colors"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Github className="w-6 h-6" />
+        </motion.a>
+        <motion.a
+          href="#"
+          className="hover:text-[#4ECCA3] transition-colors"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Linkedin className="w-6 h-6" />
+        </motion.a>
+      </div>
+    </div>
 
-          {/* Right Section: Social Media Icons */}
-          <div className="flex items-center space-x-4">
-            <motion.a
-              href="#"
-              className="hover:text-[#4ECCA3] transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Github className="w-5 h-5 md:w-6 md:h-6" />
-            </motion.a>
-            <motion.a
-              href="#"
-              className="hover:text-[#4ECCA3] transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Linkedin className="w-5 h-5 md:w-6 md:h-6" />
-            </motion.a>
-          </div>
-        </div>
-      </nav>
+    {/* Mobile Hamburger Icon (visible on mobile) */}
+    <div className="flex md:hidden">
+      <button onClick={() => setIsMobileMenuOpen(true)}>
+        <Menu className="w-10 h-10 text-white" />
+      </button>
+    </div>
+  </div>
+</nav>
+
+{isMobileMenuOpen && (
+  <div className="fixed inset-0 bg-black/90 z-50 flex flex-col items-center justify-center">
+    <button
+      onClick={() => setIsMobileMenuOpen(false)}
+      className="absolute top-4 right-4"
+    >
+      <X className="w-10 h-10 text-white" />
+    </button>
+    <div className="flex flex-col items-center space-y-8">
+      <motion.a
+        href="#home"
+        onClick={() => setIsMobileMenuOpen(false)}
+        className="text-2xl hover:text-[#4ECCA3] transition-colors"
+      >
+        Home
+      </motion.a>
+      <motion.a
+        href="#services"
+        onClick={() => setIsMobileMenuOpen(false)}
+        className="text-2xl hover:text-[#4ECCA3] transition-colors"
+      >
+        Services
+      </motion.a>
+      <motion.a
+        href="#projects"
+        onClick={() => setIsMobileMenuOpen(false)}
+        className="text-2xl hover:text-[#4ECCA3] transition-colors"
+      >
+        Projects
+      </motion.a>
+      <motion.a
+        href="#about"
+        onClick={() => setIsMobileMenuOpen(false)}
+        className="text-2xl hover:text-[#4ECCA3] transition-colors"
+      >
+        About Us
+      </motion.a>
+      <motion.a
+        href="#contact"
+        onClick={() => setIsMobileMenuOpen(false)}
+        className="text-2xl hover:text-[#4ECCA3] transition-colors"
+      >
+        Contact
+      </motion.a>
+    </div>
+  </div>
+)}
 
       {/* Hero Section */}
       <div id="home" className="relative min-h-screen flex flex-col items-center justify-center px-4 hero-gradient pt-16 overflow-hidden">
