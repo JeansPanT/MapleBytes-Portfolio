@@ -27,8 +27,8 @@ function App() {
   const { scrollYProgress } = useScroll();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 50,
+    damping: 20,
     restDelta: 0.001,
   });
 
@@ -174,7 +174,7 @@ function App() {
       <div id="home" className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-16 overflow-hidden">
         {/* Video Background with overlay */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-black/60 z-10"></div>
+          <div className="absolute inset-0 bg-black/40 z-10"></div>
           <video
             autoPlay
             muted
@@ -528,6 +528,22 @@ function App() {
     object-fit: cover;
     z-index: -1;
   }
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #4ECCA3;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+  /* Glowing effect */
+  box-shadow: 0 0 10px #4ECCA3, 0 0 20px #4ECCA3, 0 0 30px #4ECCA3;
+}
+
+
 `}</style>
     </div>
   );
